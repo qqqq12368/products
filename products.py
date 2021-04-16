@@ -1,12 +1,25 @@
-# 讀取檔案
+import os # operating system
+
 products = []
-with open('products.csv', 'r') as f:
-	for line in f:
-		if '商品,價格' in line:
-			continue #繼續
-		name, price = line.strip().split(',')  #strip去掉多餘空格或換行符號; split使用逗點做切割
-		products.append([name, price])
-print(products)
+
+# 讀取檔案+確認檔案是否存在
+if os.path.isfile('products.csv'):
+	print('ya')
+	with open('products.csv', 'r') as f:
+		for line in f:
+			if '商品,價格' in line:
+				continue #繼續
+			name, price = line.strip().split(',')  #strip去掉多餘空格或換行符號; split使用逗點做切割
+			products.append([name, price])
+	print(products)
+else:
+	print('no')
+
+
+
+
+
+
 
 # 讓使用者輸入
 while True:
