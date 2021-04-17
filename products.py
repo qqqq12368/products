@@ -1,22 +1,18 @@
 import os # operating system
 
+# function中心思想，應該只做一件事情
 
-# 讀取檔案+確認檔案是否存在
+
+# 讀取檔案
 def read_file(filename):
 	products = []
-	if os.path.isfile(filename):
-		print('ya')
-		with open(filename, 'r') as f:
-			for line in f:
-				if '商品,價格' in line:
-					continue #繼續
-				name, price = line.strip().split(',')  #strip去掉多餘空格或換行符號; split使用逗點做切割
-				products.append([name, price])
-		print(products)
-	else:
-		print('no')
+	with open(filename, 'r') as f:
+		for line in f:
+			if '商品,價格' in line:
+				continue #繼續
+			name, price = line.strip().split(',')  #strip去掉多餘空格或換行符號; split使用逗點做切割
+			products.append([name, price])	
 	return products
-
 
 # 讓使用者輸入
 def user_input(products):
@@ -48,9 +44,18 @@ def write_file(filename, products):
 												# int為轉整數 , str為轉字串
 
 
-products = (read_file('products.csv'))
-products = (user_input(products))
-print_products(products)
-write_file('products.csv', products)
+def main():  #main() function為程式進入點
+	filename = ('products.csv')
+	if os.path.isfile(filename): #確認檔案是否存在
+		print('找到檔案')
+		products = (read_file(filename))
+	else:
+		print('找不到檔案')
+	products = (user_input(products))
+	print_products(products)
+	write_file('products.csv', products)
+
+
+main()
 
 
